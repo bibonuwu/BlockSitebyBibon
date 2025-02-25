@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
 using System.Text;
@@ -29,6 +30,7 @@ namespace WpfApp2
     {
 
 
+        private const string PasswordUrl = "https://raw.githubusercontent.com/bibonuwu/Bibon/main/password.txt";
 
         public MainWindow()
         {
@@ -38,10 +40,57 @@ namespace WpfApp2
                 Application.Current.Shutdown();
                 return;
             }
+            this.Loaded += MainWindow_Loaded; // Установим обработчик события
+
+
+            if (!AuthenticateUser())
+            {
+                MessageBox.Show("Неверный пароль. Программа завершает работу.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
+                return;
+            }
 
             InitializeComponent();
         }
 
+
+        private bool AuthenticateUser()
+        {
+            string correctPassword = GetPasswordFromUrl();
+            if (correctPassword == null)
+            {
+                MessageBox.Show("Ошибка загрузки пароля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            string inputPassword = Microsoft.VisualBasic.Interaction.InputBox("Введите пароль:", "Авторизация", "");
+
+            return inputPassword == correctPassword;
+        }
+
+
+
+        private string GetPasswordFromUrl()
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    return client.DownloadString(PasswordUrl).Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки пароля: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
+        }
         private bool IsRunAsAdmin()
         {
             return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
@@ -572,6 +621,12 @@ namespace WpfApp2
             {
                 MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe", @"C:\Windows\System32\drivers\etc");
+
         }
     }
 }

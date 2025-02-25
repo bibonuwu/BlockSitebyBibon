@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp2", "WpfApp2\WpfApp2.csproj", "{BC5C8178-5D64-46B8-A1CD-78B202D5D2D9}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Block Sites", "Block Sites\Block Sites.vdproj", "{7E552173-699C-A9A4-E067-A5F427837C75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,13 @@ Global
 		{BC5C8178-5D64-46B8-A1CD-78B202D5D2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC5C8178-5D64-46B8-A1CD-78B202D5D2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC5C8178-5D64-46B8-A1CD-78B202D5D2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E552173-699C-A9A4-E067-A5F427837C75}.Debug|Any CPU.ActiveCfg = Debug
+		{7E552173-699C-A9A4-E067-A5F427837C75}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C87714AC-E700-4A88-8456-272626BA4C70}
 	EndGlobalSection
 EndGlobal
